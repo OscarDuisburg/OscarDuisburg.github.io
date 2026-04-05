@@ -56,26 +56,6 @@
             font-style: italic;
         }
         /* Visitor tracking */
-        .visitor-banner {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: #f0f4f8;
-            border-left: 4px solid #2c3e50;
-            border-radius: 0 6px 6px 0;
-            padding: 0.9rem 1.4rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-        }
-        .visitor-banner .spinner {
-            width: 18px; height: 18px;
-            border: 3px solid #ccc;
-            border-top-color: #2c3e50;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            flex-shrink: 0;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
         .country-grid {
             display: flex;
             flex-wrap: wrap;
@@ -207,10 +187,6 @@
 
     <section id="visitors">
         <h2>Visitor Statistics</h2>
-        <div class="visitor-banner" id="visitor-banner">
-            <div class="spinner" id="visitor-spinner"></div>
-            <span id="visitor-msg">Detecting your location&hellip;</span>
-        </div>
         <h3>Recorded Visitor Countries</h3>
         <p style="color:#555;font-size:0.95rem;margin-bottom:0.3rem;">Countries detected from browsers that have visited this page (stored locally in each browser):</p>
         <div class="country-grid" id="country-grid"><em style="color:#bbb;">No visits recorded yet</em></div>
@@ -274,19 +250,11 @@
             fetch('https://ipapi.co/json/')
                 .then(function (r) { return r.json(); })
                 .then(function (d) {
-                    var spinner = document.getElementById('visitor-spinner');
-                    var msg = document.getElementById('visitor-msg');
-                    if (spinner) spinner.style.display = 'none';
                     if (d.country_code && d.country_name) {
-                        var loc = (d.city ? d.city + ', ' : '') + d.country_name;
-                        if (msg) msg.innerHTML = flag(d.country_code) + ' &nbsp;Welcome, visitor from <strong>' + loc + '</strong>!';
                         renderGrid(record(d.country_code, d.country_name));
                     }
                 })
-                .catch(function () {
-                    var spinner = document.getElementById('visitor-spinner');
-                    if (spinner) spinner.style.display = 'none';
-                });
+                .catch(function () {});
         }
 
         if (document.readyState === 'loading') {
