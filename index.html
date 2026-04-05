@@ -281,15 +281,11 @@
                         var loc = (d.city ? d.city + ', ' : '') + d.country_name;
                         if (msg) msg.innerHTML = flag(d.country_code) + ' &nbsp;Welcome, visitor from <strong>' + loc + '</strong>!';
                         renderGrid(record(d.country_code, d.country_name));
-                    } else {
-                        if (msg) msg.textContent = '\uD83C\uDF10 Location could not be determined.';
                     }
                 })
                 .catch(function () {
                     var spinner = document.getElementById('visitor-spinner');
-                    var msg = document.getElementById('visitor-msg');
                     if (spinner) spinner.style.display = 'none';
-                    if (msg) msg.textContent = '\uD83C\uDF10 Location could not be determined.';
                 });
         }
 
